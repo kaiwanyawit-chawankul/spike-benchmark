@@ -7,7 +7,9 @@ namespace SpikeBenchmark
     public class DataTableRuleEngine : RuleEngine
     {
         DataTable _ruleEvaluator = new DataTable();
-        public override bool Eval(string expression, Dictionary<string, bool> variables){
+
+        public override bool Eval(string expression, Dictionary<string, bool> variables)
+        {
             var processedScript = expression;
             foreach (var key in variables.Keys)
             {
@@ -23,5 +25,3 @@ namespace SpikeBenchmark
         }
     }
 }
-
-

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
@@ -26,35 +27,55 @@ namespace SpikeBenchmark
             { "BAG3", false }
         };
 
-        [Params("BUNA && NOBAG","BUNA && (NOBAG || NOSEAT)","BUNA && (BAG1 || BAG2 || BAG3)")]
+        //[Params("BUNA && NOBAG","BUNA && (NOBAG || NOSEAT)","BUNA && (BAG1 || BAG2 || BAG3)")]
+        [Params("BUNA && NOBAG")]
         public string Expression;
 
-            [GlobalSetup]
-            public void Setup()
-            {
-ncalcRuleEngine = new NcalcRuleEngine();
-dataTableRuleEngine = new DataTableRuleEngine();
-linqRuleEngine = new LinqRuleEngine();
+        //[Params(100, 1000, 10000, 50000)]
+        [Params(10)]
+        public int Times;
 
-            }
-
-            [Benchmark]
-            public void NcalcRuleEngine()  => ncalcRuleEngine.Eval(Expression, variables);
-
-            [Benchmark]
-            public void DataTableRuleEngine() => dataTableRuleEngine.Eval(Expression, variables);
-
-            [Benchmark]
-            public void LinqRuleEngine() => linqRuleEngine.Eval(Expression, variables);
-
-    public class RuleEngine
-    {
-        public virtual bool Eval(string expression, Dictionary<string, bool> variables)
+        [GlobalSetup]
+        public void Setup()
         {
-            throw new NotImplementedException();
+            ncalcRuleEngine = new NcalcRuleEngine();
+            dataTableRuleEngine = new DataTableRuleEngine();
+            linqRuleEngine = new LinqRuleEngine();
+        }
+
+        [Benchmark]
+        public void NcalcRuleEngine()
+        {
+            for (int i = 0; i < Times; i++)
+            {
+                ncalcRuleEngine.Eval(Expression, variables);
+            }
+        }
+
+        [Benchmark]
+        public void DataTableRuleEngine()
+        {
+            for (int i = 0; i < Times; i++)
+            {
+                dataTableRuleEngine.Eval(Expression, variables);
+            }
+        }
+
+        [Benchmark]
+        public void LinqRuleEngine()
+        {
+            for (int i = 0; i < Times; i++)
+            {
+                linqRuleEngine.Eval(Expression, variables);
+            }
+        }
+
+        public class RuleEngine
+        {
+            public virtual bool Eval(string expression, Dictionary<string, bool> variables)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
-}
-
-

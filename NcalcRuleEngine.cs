@@ -6,7 +6,8 @@ namespace SpikeBenchmark
 {
     public class NcalcRuleEngine : RuleEngine
     {
-    public override bool Eval(string expression, Dictionary<string, bool> variables){
+        public override bool Eval(string expression, Dictionary<string, bool> variables)
+        {
             var _evaluator = new Expression(expression);
             foreach (var variable in variables)
             {
@@ -17,5 +18,3 @@ namespace SpikeBenchmark
         }
     }
 }
-
-
