@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 
 namespace SpikeBenchmark
 {
     [MemoryDiagnoser]
-    // [SimpleJob(RuntimeMoniker.Net472, baseline: true)]
-    [SimpleJob(RuntimeMoniker.Net80)]
+    [SimpleJob(RuntimeMoniker.Net472, baseline: true)]
+    //[SimpleJob(RuntimeMoniker.Net80)]
     public class Benchmark
     {
         NcalcRuleEngine ncalcRuleEngine;
