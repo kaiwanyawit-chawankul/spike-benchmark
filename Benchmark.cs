@@ -14,6 +14,8 @@ namespace SpikeBenchmark
         DataTableRuleEngine dataTableRuleEngine;
         LinqRuleEngine linqRuleEngine;
 
+        FleeRuleEngine fleeRuleEngine;
+
         Dictionary<string, bool> variables = new Dictionary<string, bool>()
         {
             { "BUNA", true },
@@ -39,6 +41,7 @@ namespace SpikeBenchmark
             ncalcRuleEngine = new NcalcRuleEngine();
             dataTableRuleEngine = new DataTableRuleEngine();
             linqRuleEngine = new LinqRuleEngine();
+            fleeRuleEngine = new FleeRuleEngine();
         }
 
         [Benchmark]
@@ -68,6 +71,14 @@ namespace SpikeBenchmark
             }
         }
 
+        [Benchmark]
+        public void FleeRuleEngine()
+        {
+            for (int i = 0; i < Times; i++)
+            {
+                fleeRuleEngine.Eval(Expression, variables);
+            }
+        }
         public class RuleEngine
         {
             public virtual bool Eval(string expression, Dictionary<string, bool> variables)
