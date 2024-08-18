@@ -79,6 +79,7 @@ namespace SpikeBenchmark
                 fleeRuleEngine.Eval(Expression, variables);
             }
         }
+
         public class RuleEngine
         {
             public virtual bool Eval(string expression, Dictionary<string, bool> variables)
